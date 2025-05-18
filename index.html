@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Para mi Minmincita ❤️</title>
+  <style>
+    body {
+      margin: 0;
+      overflow: hidden;
+      background: #000;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      font-family: 'Arial', sans-serif;
+    }
+    
+    canvas {
+      position: fixed;
+      top: 0;
+      left: 0;
+      z-index: 1;
+    }
+
+    .mensaje {
+      position: relative;
+      z-index: 2;
+      text-align: center;
+      font-size: clamp(2rem, 5vw, 3.5rem);
+      font-weight: bold;
+      background: linear-gradient(45deg, #ff0000, #ff69b4, #ffd700, #00ff00, #00ffff, #0000ff, #ff00ff);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+      animation: arcoiris 8s linear infinite;
+      text-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
+      padding: 20px;
+      border-radius: 15px;
+      backdrop-filter: blur(2px);
+    }
+
+    @keyframes arcoiris {
+      0% { background-position: 0% 50%; }
+      100% { background-position: 100% 50%; }
+    }
+
+    .corazon-flotante {
+      position: absolute;
+      font-size: 24px;
+      animation: flotar 4s linear infinite;
+      z-index: 3;
+      pointer-events: none;
+      filter: drop-shadow(0 0 5px rgba(255, 105, 180, 0.7));
+    }
+
+    @keyframes flotar {
+      0% { transform: translateY(0) rotate(0deg); opacity: 1; }
+      100% { transform: translateY(-100vh) rotate(360deg); opacity: 0; }
+    }
+
+    /* Pantalla de carga mejorada */
+    #cargando {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: #000;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      z-index: 1000;
+      transition: opacity 0.5s ease;
+    }
+    
+    .spinner {
+      border: 5px solid rgba(255, 105, 180, 0.3);
+      border-radius: 50%;
+      border-top: 5px solid #ff69b4;
+      width: 50px;
+      height: 50px;
+      animation: spin 1.5s linear infinite;
+      margin: 20px;
+    }
+    
+    @keyframes spin {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+    
+    .texto-carga {
+      color: #ff69b4;
+      font-size: 1.5rem;
+      text-shadow: 0 0 10px #fff;
+      text-align: center;
+      max-width: 80%;
+    }
+  </style>
+</head>
+<body>
+  <!-- Pantalla de carga con efecto profesional -->
+  <div id="cargando">
+    <div class="spinner"></div>
+    <p class="texto-carga">Preparando algo especial para ti, mi amor...</p>
+  </div>
+
+  <canvas id="canvas"></canvas>
+  <div class="mensaje">Feliz 2 añitos y 1 mes<br>mi Minmincita hermosa</div>
+  
+  <script src="fireworks.js"></script>
+  
+  <script>
+    // Corazones flotantes mejorados
+    setInterval(() => {
+      const corazon = document.createElement('div');
+      corazon.innerHTML = '❤️';
+      corazon.className = 'corazon-flotante';
+      corazon.style.left = Math.random() * 100 + 'vw';
+      corazon.style.animationDuration = (Math.random() * 3 + 2) + 's';
+      corazon.style.fontSize = (Math.random() * 20 + 15) + 'px';
+      document.body.appendChild(corazon);
+      setTimeout(() => corazon.remove(), 4000);
+    }, 200); // Más corazones por segundo
+
+    // Ocultar pantalla de carga cuando todo esté listo
+    window.addEventListener('load', () => {
+      setTimeout(() => {
+        document.getElementById('cargando').style.opacity = '0';
+        setTimeout(() => {
+          document.getElementById('cargando').style.display = 'none';
+        }, 500);
+      }, 1500); // Tiempo mínimo de carga visual
+    });
+
+    // Efecto de cursor de corazones
+    document.addEventListener('mousemove', (e) => {
+      if (Math.random() > 0.7) {
+        const corazon = document.createElement('div');
+        corazon.innerHTML = '❤️';
+        corazon.className = 'corazon-flotante';
+        corazon.style.left = e.clientX + 'px';
+        corazon.style.top = e.clientY + 'px';
+        corazon.style.animationDuration = '2s';
+        document.body.appendChild(corazon);
+        setTimeout(() => corazon.remove(), 2000);
+      }
+    });
+  </script>
+</body>
+</html>
